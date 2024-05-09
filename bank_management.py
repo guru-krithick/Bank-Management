@@ -6,6 +6,15 @@ import pandas as pd
 
 # Function to create connection to SQLite database
 def create_connection(db_file):
+    """
+    Establishes a connection to the SQLite database.
+
+    Parameters:
+        db_file (str): The path to the SQLite database file.
+
+    Returns:
+        conn: The SQLite database connection object.
+    """
     conn = None
     try:
         conn = sqlite3.connect(db_file)
@@ -16,6 +25,15 @@ def create_connection(db_file):
 
 # Function to generate a unique 8-digit account number
 def generate_account_number(conn):
+    """
+    Generates a unique 8-digit account number.
+
+    Parameters:
+        conn: The SQLite database connection object.
+
+    Returns:
+        int: A unique 8-digit account number.
+    """
     while True:
         account_number = random.randint(10000000, 99999999)
         cursor = conn.cursor()
@@ -26,6 +44,18 @@ def generate_account_number(conn):
 
 # Function to create account
 def create_account(conn, name, age, gender):
+    """
+    Creates a new account with the provided details.
+
+    Parameters:
+        conn: The SQLite database connection object.
+        name (str): The name of the account holder.
+        age (int): The age of the account holder.
+        gender (str): The gender of the account holder.
+
+    Returns:
+        int or None: The account number if account creation is successful, otherwise None.
+    """
     try:
         account_number = generate_account_number(conn)
         cursor = conn.cursor()
@@ -39,6 +69,13 @@ def create_account(conn, name, age, gender):
 
 # Function to delete account
 def delete_account(conn, account_number):
+    """
+    Deletes the account with the specified account number.
+
+    Parameters:
+        conn: The SQLite database connection object.
+        account_number (int): The account number of the account to be deleted.
+    """
     try:
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM accounts WHERE account_number = ?''', (account_number,))
@@ -49,6 +86,14 @@ def delete_account(conn, account_number):
 
 # Function to deposit money
 def deposit(conn, account_number, amount):
+    """
+    Deposits the specified amount into the account with the given account number.
+
+    Parameters:
+        conn: The SQLite database connection object.
+        account_number (int): The account number of the account to deposit money into.
+        amount (float): The amount of money to deposit.
+    """
     try:
         cursor = conn.cursor()
         # Check if the account exists
@@ -66,6 +111,14 @@ def deposit(conn, account_number, amount):
 
 # Function to withdraw money
 def withdraw(conn, account_number, amount):
+    """
+    Withdraws the specified amount from the account with the given account number.
+
+    Parameters:
+        conn: The SQLite database connection object.
+        account_number (int): The account number of the account to withdraw money from.
+        amount (float): The amount of money to withdraw.
+    """
     try:
         cursor = conn.cursor()
         # Check if the account exists
@@ -87,6 +140,13 @@ def withdraw(conn, account_number, amount):
 
 # Function to check balance
 def check_balance(conn, account_number):
+    """
+    Retrieves and displays the balance of the account with the specified account number.
+
+    Parameters:
+        conn: The SQLite database connection object.
+        account_number (int): The account number of the account to check balance for.
+    """
     try:
         cursor = conn.cursor()
         cursor.execute('''SELECT name, age, gender, balance FROM accounts WHERE account_number = ?''', (account_number,))
@@ -103,6 +163,13 @@ def check_balance(conn, account_number):
 
 # Function to check transaction history
 def transaction_history(conn, account_number):
+    """
+    Retrieves and displays the transaction history of the account with the specified account number.
+
+    Parameters:
+        conn: The SQLite database connection object.
+        account_number (int): The account number of the account to check transaction history for.
+    """
     try:
         cursor = conn.cursor()
         cursor.execute('''SELECT transaction_type, amount FROM transactions WHERE account_number = ?''', (account_number,))
@@ -118,6 +185,12 @@ def transaction_history(conn, account_number):
 
 # Function to display all account details
 def display_all_accounts(conn):
+    """
+    Retrieves and displays all account details.
+
+    Parameters:
+        conn: The SQLite database connection object.
+    """
     try:
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM accounts''')
