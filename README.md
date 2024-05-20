@@ -81,10 +81,5 @@ We welcome contributions to this project! Feel free to submit bug reports, featu
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## 📸 Screenshots
-
-_Add screenshots here to give users a visual overview of the application. (Include paths to images if you have them)._
-
----
 
 Enhance your banking experience with the **Bank Management System**. Whether you're managing your personal account or administrating multiple accounts, our system provides the tools you need for efficient and secure banking operations. Visit the deployed application [here](https://bank-management.streamlit.app/) and start exploring today!
